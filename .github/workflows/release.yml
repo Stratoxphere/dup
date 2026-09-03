@@ -128,6 +128,20 @@ jobs:
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `windows_version=${windowsVersion}\n`);
           NODE
 
+      - name: Require updater signing credentials
+        shell: bash
+        env:
+          UPDATER_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          UPDATER_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          for value in UPDATER_PRIVATE_KEY UPDATER_PRIVATE_KEY_PASSWORD; do
+            if [[ -z "${!value}" ]]; then
+              echo "Missing required release secret: $value" >&2
+              exit 1
+            fi
+          done
+
       - name: Create Bot installation token
         id: bot-token
         uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2
@@ -260,6 +274,8 @@ jobs:
           APPLE_API_KEY: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
           APPLE_API_ISSUER: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APPLE_API_KEY_PATH: ${{ env.NOTARY_KEY_PATH }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           args: ${{ matrix.args }}
 
@@ -299,6 +315,8 @@ jobs:
             ${{ matrix.bundle }}/deb/*.deb
             ${{ matrix.bundle }}/rpm/*.rpm
             ${{ matrix.bundle }}/appimage/*.AppImage
+            ${{ matrix.bundle }}/macos/*.app.tar.gz
+            ${{ matrix.bundle }}/**/*.sig
 
   release:
     name: Publish release
@@ -340,6 +358,7 @@ jobs:
           import os
           import shutil
           from pathlib import Path
+          from urllib.parse import quote
 
           output = Path('release-assets')
           output.mkdir()
@@ -354,11 +373,62 @@ jobs:
           for name in ('terms-of-service.md', 'privacy-policy.md'):
               shutil.copy2(name, output / name)
 
+          def exactly_one(label, suffix):
+              matches = sorted(
+                  path for path in output.iterdir()
+                  if path.is_file() and path.name.endswith(suffix) and not path.name.endswith('.sig')
+              )
+              if len(matches) != 1:
+                  names = ', '.join(path.name for path in matches) or '<none>'
+                  raise SystemExit(f'Expected exactly one {label}; found: {names}')
+              return matches[0]
+
+          updater_payloads = {
+              'darwin-aarch64-app': exactly_one('macOS updater archive', '.app.tar.gz'),
+              'windows-x86_64-nsis': exactly_one('Windows NSIS installer', '.exe'),
+              'windows-x86_64-msi': exactly_one('Windows MSI installer', '.msi'),
+              'linux-x86_64-appimage': exactly_one('Linux AppImage', '.AppImage'),
+              'linux-x86_64-deb': exactly_one('Linux deb package', '.deb'),
+              'linux-x86_64-rpm': exactly_one('Linux rpm package', '.rpm'),
+          }
+          expected_signatures = {f'{payload.name}.sig' for payload in updater_payloads.values()}
+          actual_signatures = {path.name for path in output.glob('*.sig')}
+          if actual_signatures != expected_signatures:
+              missing = sorted(expected_signatures - actual_signatures)
+              unexpected = sorted(actual_signatures - expected_signatures)
+              raise SystemExit(
+                  f'Updater signatures do not match payloads; missing={missing}, unexpected={unexpected}'
+              )
+
+          repository = os.environ['GITHUB_REPOSITORY']
+          source_ref = os.environ['SOURCE_REF']
+          base_url = f'https://github.com/{repository}/releases/download/{source_ref}'
+          platforms = {}
+          for target, payload in updater_payloads.items():
+              signature = (output / f'{payload.name}.sig').read_text(encoding='utf-8').strip()
+              if not signature or '\n' in signature or '\r' in signature:
+                  raise SystemExit(f'Invalid updater signature file: {payload.name}.sig')
+              platforms[target] = {
+                  'url': f'{base_url}/{quote(payload.name)}',
+                  'signature': signature,
+              }
+
+          update_manifest = {
+              'version': os.environ['PUBLIC_VERSION'],
+              'notes': f'Dup {os.environ["PUBLIC_VERSION"]} is available.',
+              'platforms': platforms,
+          }
+          (output / 'latest.json').write_text(
+              json.dumps(update_manifest, indent=2, sort_keys=True) + '\n',
+              encoding='utf-8',
+          )
+
           metadata = {
               'product': 'Dup',
               'version': os.environ['PUBLIC_VERSION'],
               'sourceRef': os.environ['SOURCE_REF'],
               'windowsBundleVersion': os.environ['WINDOWS_VERSION'],
+              'updaterManifest': 'latest.json',
           }
           (output / 'release.json').write_text(json.dumps(metadata, indent=2) + '\n', encoding='utf-8')
 
@@ -401,6 +471,16 @@ jobs:
           actual="$(gh release view "$SOURCE_REF" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets | length')"
           if [[ "$actual" != "$expected" ]]; then
             echo "Release has $actual assets; expected $expected. It remains a draft." >&2
+            exit 1
+          fi
+
+          find release-assets -maxdepth 1 -type f -exec basename {} \; | sort > expected-assets.txt
+          gh release view "$SOURCE_REF" \
+            --repo "$GITHUB_REPOSITORY" \
+            --json assets \
+            --jq '.assets[].name' | sort > actual-assets.txt
+          if ! diff -u expected-assets.txt actual-assets.txt; then
+            echo "Draft release assets do not match the verified local set. It remains a draft." >&2
             exit 1
           fi
           gh release edit "$SOURCE_REF" --repo "$GITHUB_REPOSITORY" --draft=false
