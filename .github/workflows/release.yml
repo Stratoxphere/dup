@@ -25,6 +25,7 @@ jobs:
       source_sha: ${{ steps.source.outputs.source_sha }}
       public_version: ${{ steps.version.outputs.public_version }}
       windows_version: ${{ steps.version.outputs.windows_version }}
+      updater_public_key: ${{ steps.version.outputs.updater_public_key }}
     steps:
       - name: Checkout immutable source tag
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
@@ -120,12 +121,26 @@ jobs:
           if (tauri.identifier !== 'app.stratoxphere.dup') {
             throw new Error(`Unexpected Tauri identifier: ${tauri.identifier}`);
           }
+          if (tauri.bundle?.createUpdaterArtifacts !== true) {
+            throw new Error('src-tauri/tauri.conf.json must enable v2 updater artifacts.');
+          }
+          const updater = tauri.plugins?.updater;
+          const expectedEndpoint = 'https://github.com/Stratoxphere/dup/releases/latest/download/latest.json';
+          if (!updater || updater.endpoints?.length !== 1 || updater.endpoints[0] !== expectedEndpoint) {
+            throw new Error('src-tauri/tauri.conf.json must use the canonical updater endpoint.');
+          }
+          const updaterPublicKey = updater.pubkey;
+          const decodedPublicKey = Buffer.from(updaterPublicKey ?? '', 'base64').toString('utf8');
+          if (!decodedPublicKey.startsWith('untrusted comment: minisign public key:') || !decodedPublicKey.includes('\nRW')) {
+            throw new Error('src-tauri/tauri.conf.json has an invalid updater public key.');
+          }
           if (windows.version !== windowsVersion || windows.bundle?.windows?.wix?.version !== windowsVersion) {
             throw new Error(`Windows bundle version must be ${windowsVersion}`);
           }
 
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `public_version=${publicVersion}\n`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `windows_version=${windowsVersion}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `updater_public_key=${updaterPublicKey}\n`);
           NODE
 
       - name: Require updater signing credentials
@@ -438,6 +453,34 @@ jobs:
               checksums.append(f'{digest}  {path.name}')
           (output / 'SHA256SUMS').write_text('\n'.join(checksums) + '\n', encoding='utf-8')
           PY
+
+      - name: Cryptographically verify updater payloads
+        shell: bash
+        env:
+          UPDATER_PUBLIC_KEY: ${{ needs.preflight.outputs.updater_public_key }}
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y minisign
+
+          public_key_path="$RUNNER_TEMP/dup-updater.pub"
+          printf '%s' "$UPDATER_PUBLIC_KEY" | base64 --decode > "$public_key_path"
+          test -s "$public_key_path"
+
+          verified=0
+          while IFS= read -r -d '' signature; do
+            payload="${signature%.sig}"
+            test -f "$payload"
+            decoded_signature="$(mktemp "$RUNNER_TEMP/dup-update-signature.XXXXXX")"
+            base64 --decode "$signature" > "$decoded_signature"
+            minisign -Vm "$payload" -p "$public_key_path" -x "$decoded_signature"
+            verified=$((verified + 1))
+          done < <(find release-assets -maxdepth 1 -type f -name '*.sig' -print0)
+
+          if [[ "$verified" -ne 6 ]]; then
+            echo "Verified $verified updater signatures; expected 6." >&2
+            exit 1
+          fi
 
       - name: Create verified draft and publish it
         shell: bash
