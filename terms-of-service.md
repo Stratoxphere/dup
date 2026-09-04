@@ -1,12 +1,12 @@
 # Dup Terms of Service
 
-**Effective: September 3, 2026**
+**Effective: September 5, 2026**
 
 These Terms of Service (the **“Terms”**) govern your download, installation, purchase, and use of Dup, the related Stratoxphere account and licensing services, and any updates or documentation we provide (collectively, the **“Service”**).
 
 The Service is provided under the Stratoxphere Lab name (**“Stratoxphere,” “we,” “us,”** or **“our”**). You can contact us at **support@stratoxphere.app**. The operator's legal identity is disclosed in the Contact section below.
 
-By creating or connecting an account, purchasing Dup, or using the Service, you agree to these Terms and the [Dup Privacy Policy](./privacy-policy.md). Any additional commercial terms displayed before purchase also form part of your agreement. If you use Dup on behalf of an organization, you represent that you have authority to bind that organization, and “you” includes that organization.
+By creating or connecting an account, purchasing Dup, or using the Service, you agree to these Terms and the [Dup Refund Policy](./refund-policy.md), and you acknowledge the [Dup Privacy Policy](./privacy-policy.md). Any additional commercial terms displayed before purchase also form part of your agreement. If you use Dup on behalf of an organization, you represent that you have authority to bind that organization, and “you” includes that organization.
 
 ## 1. Eligibility
 
@@ -30,7 +30,7 @@ Available purchase options, price, currency, applicable taxes, license scope, an
 
 Creem acts as the merchant of record and contractual reseller for the transaction. Creem processes payment, issues the invoice, handles applicable indirect taxes, and provides its Customer Portal. By purchasing Dup, you also agree to the current [Creem Buyer Terms](https://www.creem.io/buyer-terms). If these Terms conflict with Creem's terms on a matter Creem controls as merchant of record, Creem's terms control that matter.
 
-Creem handles refunds, reversals, and chargebacks in accordance with its current terms and applicable law. A refunded, reversed, or disputed purchase may cause the related Dup license to be revoked.
+Stratoxphere determines refund eligibility under the [Dup Refund Policy](./refund-policy.md) and applicable law. Creem exclusively processes approved refunds, reversals, and chargebacks through its payment systems and may also issue a refund where permitted by its terms or required by law. A refunded, reversed, or disputed purchase ends the related Dup license and access.
 
 ## 5. License
 
@@ -113,7 +113,7 @@ The Terms stored with a tagged Dup release document the terms presented for that
 
 ## 16. General
 
-These Terms, the Privacy Policy, and any terms expressly presented at checkout form the agreement between you and Stratoxphere concerning Dup. If a provision is unenforceable, it will be enforced to the maximum lawful extent and the remainder will continue in effect. A failure to enforce a provision is not a waiver. You may not assign these Terms without our written consent; we may assign them in connection with a merger, acquisition, reorganization, or transfer of the Service, subject to applicable law.
+These Terms, the [Refund Policy](./refund-policy.md), the [Privacy Policy](./privacy-policy.md), and any terms expressly presented at checkout form the agreement between you and Stratoxphere concerning Dup. If a provision is unenforceable, it will be enforced to the maximum lawful extent and the remainder will continue in effect. A failure to enforce a provision is not a waiver. You may not assign these Terms without our written consent; we may assign them in connection with a merger, acquisition, reorganization, or transfer of the Service, subject to applicable law.
 
 ## 17. Contact
 
