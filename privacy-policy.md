@@ -1,6 +1,6 @@
 # Dup Privacy Policy
 
-**Effective: September 3, 2026**
+**Effective: September 11, 2026**
 
 This Privacy Policy explains how Stratoxphere Lab (**“Stratoxphere,” “we,” “us,”** or **“our”**) handles personal data when you use Dup, the Stratoxphere account platform, and related account, commerce, access, device, and licensing services (collectively, the **“Service”**). The operator's legal identity is disclosed in the Contact section below.
 
@@ -10,7 +10,7 @@ Stratoxphere is the controller of the personal data described as Platform Data b
 
 Dup has two separate data paths.
 
-**Gemini processing happens directly from your device.** Dup uses your own Gemini API key to send content from your device to Google. Audio, selected text, optional screenshots, transcripts submitted for rewriting, custom vocabulary, prompts, and Gemini output do not pass through the Stratoxphere Platform. Stratoxphere does not receive or store that content on its servers through this path.
+**AI processing happens directly from your device.** Dup uses your own API keys to send content from your device to the AI providers you select: Google through the Gemini API or OpenAI through the OpenAI API. Audio, selected text, optional screenshots, transcripts submitted for rewriting, custom vocabulary, prompts, and AI output do not pass through the Stratoxphere Platform. Stratoxphere does not receive or store that content on its servers through this path.
 
 **Account and access data goes to Stratoxphere.** The Stratoxphere Platform processes information needed to sign you in, manage access and purchases, activate devices, validate licenses, prevent abuse, provide support, and maintain security and transaction records.
 
@@ -22,29 +22,36 @@ Dup stores or handles the following locally:
 
 | Data | What Dup does with it |
 | --- | --- |
-| Gemini API key | Stores it using secure storage provided by your operating system, or uses another source you deliberately configure. Dup uses the key to authenticate requests sent directly to Google. |
+| AI provider API keys | Stores your Gemini and OpenAI API keys using secure storage provided by your operating system, or uses another source you deliberately configure. Dup uses each key to authenticate requests sent directly to its corresponding provider. |
 | Account and access credentials | Stores the credentials needed to connect Dup to your Stratoxphere account and confirm access using secure storage provided by your operating system. Dup does not store your Google sign-in password. |
 | Device identifier | Generates and stores an identifier used to distinguish the installation for account, security, and licensing purposes. |
-| Settings and application state | Stores your shortcut, microphone selection, language preferences, custom vocabulary, screen-context choice, writing style, clipboard choice, history choice, and onboarding state in local application files. |
+| Settings and application state | Stores your shortcut, microphone selection, language preferences, transcription and language-model provider and model selections, custom vocabulary, screen-context choice, writing style, clipboard choice, history choice, and onboarding state in local application files. |
 | Dictation history | By default, Dup stores a local history containing transcripts, modifications, relevant application context, settings used for the request, output, timing, outcome, and errors. You can disable history, inspect it, or clear it at any time. Older entries may be removed automatically to keep the history bounded. |
-| Microphone audio | Holds audio in memory while sending it to the Gemini API. Dup does not save a local audio recording as part of dictation history. |
-| Screen Context screenshot | When you turn Screen Context on, captures the active window or current display. The screenshot is held in memory, sent directly to Google, and not written to disk by Dup. Screen Context is off by default. |
+| Microphone audio | Holds audio in memory while sending it directly to your selected transcription provider. Dup does not save a local audio recording as part of dictation history. |
+| Screen Context screenshot | When you turn Screen Context on, captures the active window or current display. The screenshot is held in memory, sent directly to your selected language-model provider, and not written to disk by Dup. Screen Context is off by default. |
 | Clipboard and selected text | Reads or changes selected text when you use the modification feature. Dup may place generated text on the clipboard. Depending on your settings and system capabilities, it may restore the previous clipboard contents or leave the generated text there for you to paste. Selected text may also appear in local dictation history. |
 
 Removing the application may not remove its data automatically. Use Dup's clear controls or your operating system's application-data tools if you want to remove local data.
 
-## 3. Content Sent Directly to Google
+## 3. Content Sent Directly to AI Providers
 
-Depending on what you do and which features you enable, Dup sends the following directly to the Gemini API under your API key:
+You can choose the provider for live transcription separately from the provider for language-model tasks. Each can use Google through the Gemini API or OpenAI through the OpenAI API. Depending on what you do and which features you enable, Dup sends the following directly under your API key for the selected provider:
 
-- microphone audio and the settings or vocabulary needed for transcription;
-- a transcript and your selected writing style or instruction for a rewrite;
-- selected text and a spoken instruction for the modification feature; and
-- an in-memory screenshot when Screen Context is enabled.
+- microphone audio and the settings or vocabulary needed for transcription to your transcription provider;
+- a transcript and your selected writing style or instruction for a rewrite to your language-model provider;
+- selected text and the transcribed spoken instruction for the modification feature to your language-model provider; and
+- an in-memory screenshot to your language-model provider when Screen Context is enabled.
 
-Google handles this content under its current [Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Privacy Policy](https://policies.google.com/privacy). Those documents may change independently of this Policy. Review them before deciding what content to process through Dup. Stratoxphere does not restate or control Google's data practices.
+When Screen Context supplies vocabulary for transcription, Dup also sends the extracted terms to your transcription provider. If you select different providers, transcripts and screen-derived vocabulary can therefore be processed by both providers, while microphone audio goes to the transcription provider and screenshots go to the language-model provider.
 
-Because you choose and control the Google account, API key, related configuration, and content sent through that key, Stratoxphere cannot access, delete, export, or control content held by Google on your behalf.
+Each provider handles this content under its applicable terms and privacy documentation:
+
+- **Google:** [Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Google Privacy Policy](https://policies.google.com/privacy).
+- **OpenAI:** [OpenAI Services Agreement](https://openai.com/policies/services-agreement/) and [OpenAI Privacy Policy](https://openai.com/policies/privacy-policy/).
+
+Those documents may change independently of this Policy. Review the documents for your selected providers before deciding what content to process through Dup. Stratoxphere does not restate or control those providers' data practices.
+
+Because you choose and control each provider account, API key, related configuration, and content sent through that key, Stratoxphere cannot access, delete, export, or control content held by those providers on your behalf.
 
 ## 4. Platform Data We Collect
 
@@ -59,7 +66,7 @@ We collect or generate the following categories of Platform Data:
 | Security and operations | Audit events, request and webhook metadata, status, errors, IP address, user agent, and other information needed to secure and operate the Service | Your device, the Platform, Creem, and our infrastructure providers |
 | Support communications | Your message, contact details, and any files or diagnostic information you choose to provide | You |
 
-Some sensitive commerce and licensing values are stored in protected form. We do not receive the Gemini content described in Section 3 through the Stratoxphere Platform.
+Some sensitive commerce and licensing values are stored in protected form. We do not receive the AI content described in Section 3 through the Stratoxphere Platform.
 
 ## 5. Why We Process Platform Data
 
@@ -113,14 +120,15 @@ You can:
 
 - leave Screen Context off or disable it at any time;
 - disable, inspect, or clear local dictation history;
-- remove the locally stored Gemini API key or revoke it through Google;
+- select the providers and models used for transcription and language-model tasks;
+- remove locally stored API keys or revoke them through the corresponding providers;
 - change Dup settings and custom vocabulary;
 - edit the display name associated with your Stratoxphere account;
 - manage supported device activations through your account;
 - disconnect Dup from your account; and
 - request account deletion by emailing **support@stratoxphere.app** from the email address associated with your Stratoxphere account.
 
-Clearing Dup's local data does not delete data held by Google under your API key, Platform Data stored by Stratoxphere, or transaction records held by Creem. Requests concerning data controlled by Google or Creem may need to be directed to those providers.
+Clearing Dup's local data does not delete data held by Google or OpenAI under your API keys, Platform Data stored by Stratoxphere, or transaction records held by Creem. Requests concerning data controlled by Google, OpenAI, or Creem may need to be directed to those providers.
 
 ## 10. Your Privacy Rights
 
@@ -134,7 +142,7 @@ If we process data based on legitimate interests, you may object based on your c
 
 We use administrative, technical, and organizational safeguards designed to protect Platform Data, including protections for data in transit and at rest, access controls, credential management, and separation between public application code and server-side credentials.
 
-Dup uses secure storage provided by the operating system for supported credentials. No method of storage or transmission is completely secure, and we cannot guarantee absolute security. You are responsible for protecting your device, Stratoxphere account, Google account, and Gemini API key.
+Dup uses secure storage provided by the operating system for supported credentials. No method of storage or transmission is completely secure, and we cannot guarantee absolute security. You are responsible for protecting your device, Stratoxphere account, AI provider accounts, and API keys.
 
 ## 12. Children
 

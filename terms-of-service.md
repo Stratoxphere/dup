@@ -1,6 +1,6 @@
 # Dup Terms of Service
 
-**Effective: September 5, 2026**
+**Effective: September 11, 2026**
 
 These Terms of Service (the **“Terms”**) govern your download, installation, purchase, and use of Dup, the related Stratoxphere account and licensing services, and any updates or documentation we provide (collectively, the **“Service”**).
 
@@ -42,11 +42,16 @@ Dup may connect to the Stratoxphere Platform to activate devices and periodicall
 
 Only the latest released version of Dup is supported. We may require an update where reasonably necessary for security, compatibility, licensing, legal compliance, or reliable operation.
 
-## 6. Your Gemini API Key and Google Services
+## 6. Your API Keys and AI Providers
 
-You obtain and control your own Gemini API key. You are responsible for its security, activity, usage charges, configuration, and lawful use. Before using Gemini-powered features, review and comply with the current [Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Google Privacy Policy](https://policies.google.com/privacy). Those documents may change independently of these Terms and govern Google's services.
+You obtain and control your own API keys for the AI providers you select in Dup. You are responsible for their security, activity, usage charges, configuration, and lawful use. Before using a provider's features, review and comply with its current terms and privacy documentation:
 
-Stratoxphere does not restate or modify Google's requirements and cannot make an otherwise prohibited use permissible. Gemini and other third-party services may change, become unavailable, reject a request, or produce an error. Those services are not controlled by Stratoxphere.
+- **Google Gemini:** [Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Google Privacy Policy](https://policies.google.com/privacy).
+- **OpenAI:** [OpenAI Services Agreement](https://openai.com/policies/services-agreement/) and [OpenAI Privacy Policy](https://openai.com/policies/privacy-policy/).
+
+Those documents may change independently of these Terms and govern the corresponding provider's services. The [Dup Privacy Policy](./privacy-policy.md) explains which content is sent to each selected provider.
+
+Stratoxphere does not restate or modify those providers' requirements and cannot make an otherwise prohibited use permissible. AI providers and other third-party services may change, become unavailable, reject a request, or produce an error. Those services are not controlled by Stratoxphere.
 
 ## 7. Your Content and Responsibilities
 
