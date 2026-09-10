@@ -10,7 +10,7 @@ Stratoxphere is the controller of the personal data described as Platform Data b
 
 Dup has two separate data paths.
 
-**AI processing happens directly from your device.** Dup uses your own API keys to send content from your device to the AI providers you select: Google through the Gemini API or OpenAI through the OpenAI API. Audio, selected text, optional screenshots, transcripts submitted for rewriting, custom vocabulary, prompts, and AI output do not pass through the Stratoxphere Platform. Stratoxphere does not receive or store that content on its servers through this path.
+**AI processing happens directly from your device.** Dup uses your own API keys to send content from your device to your selected **inference providers**: third-party services you choose for transcription or language-model processing. Audio, selected text, optional screenshots, transcripts submitted for rewriting, custom vocabulary, prompts, and AI output do not pass through the Stratoxphere Platform. Stratoxphere does not receive or store that content on its servers through this path.
 
 **Account and access data goes to Stratoxphere.** The Stratoxphere Platform processes information needed to sign you in, manage access and purchases, activate devices, validate licenses, prevent abuse, provide support, and maintain security and transaction records.
 
@@ -22,7 +22,7 @@ Dup stores or handles the following locally:
 
 | Data | What Dup does with it |
 | --- | --- |
-| AI provider API keys | Stores your Gemini and OpenAI API keys using secure storage provided by your operating system, or uses another source you deliberately configure. Dup uses each key to authenticate requests sent directly to its corresponding provider. |
+| Inference provider API keys | Stores your API keys for your selected inference providers using secure storage provided by your operating system, or uses another source you deliberately configure. Dup uses each key to authenticate requests sent directly to its corresponding provider. |
 | Account and access credentials | Stores the credentials needed to connect Dup to your Stratoxphere account and confirm access using secure storage provided by your operating system. Dup does not store your Google sign-in password. |
 | Device identifier | Generates and stores an identifier used to distinguish the installation for account, security, and licensing purposes. |
 | Settings and application state | Stores your shortcut, microphone selection, language preferences, transcription and language-model provider and model selections, custom vocabulary, screen-context choice, writing style, clipboard choice, history choice, and onboarding state in local application files. |
@@ -33,9 +33,9 @@ Dup stores or handles the following locally:
 
 Removing the application may not remove its data automatically. Use Dup's clear controls or your operating system's application-data tools if you want to remove local data.
 
-## 3. Content Sent Directly to AI Providers
+## 3. Content Sent Directly to Inference Providers
 
-You can choose the provider for live transcription separately from the provider for language-model tasks. Each can use Google through the Gemini API or OpenAI through the OpenAI API. Depending on what you do and which features you enable, Dup sends the following directly under your API key for the selected provider:
+You can choose the inference provider for live transcription separately from the inference provider for language-model tasks. Depending on what you do and which features you enable, Dup sends the following directly under your API key for the selected provider:
 
 - microphone audio and the settings or vocabulary needed for transcription to your transcription provider;
 - a transcript and your selected writing style or instruction for a rewrite to your language-model provider;
@@ -44,12 +44,7 @@ You can choose the provider for live transcription separately from the provider 
 
 When Screen Context supplies vocabulary for transcription, Dup also sends the extracted terms to your transcription provider. If you select different providers, transcripts and screen-derived vocabulary can therefore be processed by both providers, while microphone audio goes to the transcription provider and screenshots go to the language-model provider.
 
-Each provider handles this content under its applicable terms and privacy documentation:
-
-- **Google:** [Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Google Privacy Policy](https://policies.google.com/privacy).
-- **OpenAI:** [OpenAI Services Agreement](https://openai.com/policies/services-agreement/) and [OpenAI Privacy Policy](https://openai.com/policies/privacy-policy/).
-
-Those documents may change independently of this Policy. Review the documents for your selected providers before deciding what content to process through Dup. Stratoxphere does not restate or control those providers' data practices.
+Each inference provider handles this content under its applicable terms and privacy policies. Review the current documents published by your selected providers for the services you use before deciding what content to process through Dup. Those documents may change independently of this Policy. Stratoxphere does not restate or control those providers' data practices.
 
 Because you choose and control each provider account, API key, related configuration, and content sent through that key, Stratoxphere cannot access, delete, export, or control content held by those providers on your behalf.
 
@@ -128,7 +123,7 @@ You can:
 - disconnect Dup from your account; and
 - request account deletion by emailing **support@stratoxphere.app** from the email address associated with your Stratoxphere account.
 
-Clearing Dup's local data does not delete data held by Google or OpenAI under your API keys, Platform Data stored by Stratoxphere, or transaction records held by Creem. Requests concerning data controlled by Google, OpenAI, or Creem may need to be directed to those providers.
+Clearing Dup's local data does not delete data held by your inference providers under your API keys, Platform Data stored by Stratoxphere, or transaction records held by Creem. Requests concerning data controlled by an inference provider or Creem may need to be directed to the corresponding provider.
 
 ## 10. Your Privacy Rights
 
@@ -142,7 +137,7 @@ If we process data based on legitimate interests, you may object based on your c
 
 We use administrative, technical, and organizational safeguards designed to protect Platform Data, including protections for data in transit and at rest, access controls, credential management, and separation between public application code and server-side credentials.
 
-Dup uses secure storage provided by the operating system for supported credentials. No method of storage or transmission is completely secure, and we cannot guarantee absolute security. You are responsible for protecting your device, Stratoxphere account, AI provider accounts, and API keys.
+Dup uses secure storage provided by the operating system for supported credentials. No method of storage or transmission is completely secure, and we cannot guarantee absolute security. You are responsible for protecting your device, Stratoxphere account, inference provider accounts, and API keys.
 
 ## 12. Children
 

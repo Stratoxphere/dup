@@ -42,16 +42,13 @@ Dup may connect to the Stratoxphere Platform to activate devices and periodicall
 
 Only the latest released version of Dup is supported. We may require an update where reasonably necessary for security, compatibility, licensing, legal compliance, or reliable operation.
 
-## 6. Your API Keys and AI Providers
+## 6. Your API Keys and Inference Providers
 
-You obtain and control your own API keys for the AI providers you select in Dup. You are responsible for their security, activity, usage charges, configuration, and lawful use. Before using a provider's features, review and comply with its current terms and privacy documentation:
-
-- **Google Gemini:** [Gemini API Terms](https://ai.google.dev/gemini-api/terms) and [Google Privacy Policy](https://policies.google.com/privacy).
-- **OpenAI:** [OpenAI Services Agreement](https://openai.com/policies/services-agreement/) and [OpenAI Privacy Policy](https://openai.com/policies/privacy-policy/).
+An **inference provider** is a third-party service you select for transcription or language-model processing in Dup. You obtain and control your own API keys for your selected inference providers. You are responsible for their security, activity, usage charges, configuration, and lawful use. Before using a provider's features, review and comply with the current terms and privacy policies published by that provider for the services you use.
 
 Those documents may change independently of these Terms and govern the corresponding provider's services. The [Dup Privacy Policy](./privacy-policy.md) explains which content is sent to each selected provider.
 
-Stratoxphere does not restate or modify those providers' requirements and cannot make an otherwise prohibited use permissible. AI providers and other third-party services may change, become unavailable, reject a request, or produce an error. Those services are not controlled by Stratoxphere.
+Stratoxphere does not restate or modify those providers' requirements and cannot make an otherwise prohibited use permissible. Inference providers and other third-party services may change, become unavailable, reject a request, or produce an error. Those services are not controlled by Stratoxphere.
 
 ## 7. Your Content and Responsibilities
 

@@ -1,6 +1,6 @@
 # Dup Refund Policy
 
-**Effective: September 5, 2026**
+**Effective: September 11, 2026**
 
 This Refund Policy applies to one-time purchases of Dup made through Creem. It explains when a purchase may be eligible for a refund, how to ask for help, and what happens to your Dup access after a refund.
 
@@ -33,7 +33,7 @@ Email **support@stratoxphere.app** from the email address used for your Stratoxp
 - a concise description of the issue and the outcome you are requesting; and
 - any troubleshooting steps already attempted, if the request concerns delivery or product operation.
 
-Do not send payment-card details, passwords, Gemini API keys, or dictation content. We may ask for additional information needed to verify the purchase or understand the issue.
+Do not send payment-card details, passwords, API keys, or dictation content. We may ask for additional information needed to verify the purchase or understand the issue.
 
 We will acknowledge or substantively respond to your request within **three business days**. This response period is not a promise that every request will be approved or fully resolved within that time.
 
